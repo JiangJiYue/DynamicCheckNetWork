@@ -19,18 +19,26 @@
     ```bash
      git clone <repository-url>
     ```
+
 2. **构建项目：**
    在 Visual Studio 中打开项目并进行构建。确保所有必要的库（`iphlpapi.lib`, `ws2_32.lib`, `wininet.lib`, `wlanapi.lib`）已链接。
+
 3. **注册服务：**
    以管理员权限打开命令提示符，并使用 `sc` 命令注册服务：
+
     ```bash
      sc create DynamicCheckNetWork binPath="C:\path\to\your\executable.exe"
     ```
+
 4. **启动服务：**
    使用以下命令启动服务：
    ```bash
    sc start DynamicCheckNetWork
    ```
+   
+5. **开启自启:**
+    单击[开始]>[运行],输入`services.msc`--->找到`DynamicCheckNetWork`--->右键属性--->将启动类型设置为自动
+   
 ## 使用
 
 服务启动后，它会持续监控网络状态。信息将记录在与可执行文件相同目录下的名为 `log.txt` 的文件中。当检测到变化时，它将使用配置的`WebHook URL`向钉钉发送通知。
